@@ -1,0 +1,78 @@
+#!/bin/bash
+ 
+while getopts ":wWr:d:a:s:m:cCku:t:xX:bB" opt; do
+  tweet=""
+  case $opt in
+	B)
+		tweet="got up"
+		;;
+	b)
+		tweet="went to bed"
+		echo "0" > /home/chrifpa/Dropbox/.coffeecounter
+		echo "0" > /home/chrifpa/Dropbox/.watercounter
+		;;
+	X)
+		tweet="$OPTARG"
+		;;
+	x)
+		tweet="filler"
+		;;
+	r)
+		tweet="read $OPTARG"
+		;;
+	t)
+		tweet="took $OPTARG"
+		;;
+	w)
+		tweet="drank 1 water"
+		i=`cat /home/chrifpa/Dropbox/.watercounter`
+		let "i+=1"
+		echo water $i
+		echo $i > /home/chrifpa/Dropbox/.watercounter
+		;;
+	W)
+		tweet="drank 2 water"
+		i=`cat /home/chrifpa/Dropbox/.watercounter`
+		let "i+=2"
+		echo water $i
+		echo $i > /home/chrifpa/Dropbox/.watercounter
+		;;
+	d)
+		tweet="drank $OPTARG"
+		;;
+	a)
+		tweet="ate $OPTARG"
+		;;
+	s)
+		tweet="slept $OPTARG hours"
+		;;
+	m)
+		tweet="watched $OPTARG"
+		;;
+	u)
+		tweet="worked $OPTARG hours for uni"
+		;;
+	c)
+		tweet="took 10 mg cetirizin"
+		;;
+	C)
+		tweet="took 20 mg citalopram"
+		;;
+	k)
+		tweet="drank 1 coffee"
+		i=`cat /home/chrifpa/Dropbox/.coffeecounter`
+		let "i+=1"
+		echo coffee $i
+		echo $i > /home/chrifpa/Dropbox/.coffeecounter
+		;;
+
+	\?)
+		echo "Invalid option: -$OPTARG"
+    		;;
+  esac
+  if [ -n "$tweet" ]
+  	then
+  		echo $tweet
+  		tw "d yfd $tweet"
+  fi
+done

@@ -1,0 +1,18 @@
+#!/bin/bash
+
+tweet=""
+
+for word in $@; do
+	tweet="$tweet $word"
+done
+
+if [ ${#tweet} -le 140 ]; then
+	ttytter -status="$tweet" > /home/chrifpa/.twlog
+else
+	echo "too long :("
+fi
+
+if grep -Fq "FAIL" .twlog; then
+	echo "   ...ugh, something went wrong :("
+fi
+rm /home/chrifpa/.twlog

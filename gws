@@ -1,0 +1,9 @@
+#!/bin/bash
+
+path="/home/chrifpa/Dropbox/PlainText/.grosseworte.txt"
+
+sleep $RANDOM
+
+echo `head -1 $path` "#grosseworte" | ttytter -script
+
+sed -i 1d $path
