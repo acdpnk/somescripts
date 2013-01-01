@@ -1,18 +1,24 @@
 #!/bin/bash
 
+logpath="/home/chrifpa/.twlog"
+
 tweet=""
 
 for word in $@; do
 	tweet="$tweet $word"
 done
 
-if [ ${#tweet} -le 140 ]; then
-	ttytter -status="$tweet" > /home/chrifpa/.twlog
+count=${#tweet}
+
+let count -= 140
+
+if [ $count -le 0 ]; then
+	ttytter -status="$tweet" > $logpath
 else
-	echo "too long :("
+	echo "too long by $count :("
 fi
 
-if grep -Fq "FAIL" .twlog; then
+if grep -Fq "FAIL" $logpath; then
 	echo "   ...ugh, something went wrong :("
 fi
-rm /home/chrifpa/.twlog
+rm $logpath
