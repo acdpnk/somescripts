@@ -1,6 +1,7 @@
 #!/bin/bash
 
 logpath="/home/chrifpa/.twlog"
+maxlen=140
 
 tweet=""
 
@@ -10,7 +11,7 @@ done
 
 count=${#tweet}
 
-let count-=140
+let count-=maxlen
 
 if [ $count -le 0 ]; then
 	ttytter -status="$tweet" > $logpath
