@@ -1,7 +1,5 @@
 #!/bin/bash
 
-#hua!
-
 logpath="/home/chrifpa/.twlog"
 maxlen=140
 
