@@ -1,0 +1,6 @@
+#!/bin/bash
+
+aiccu stop
+sleep 10s
+curl icanhazip.com > /home/mrnda/.ip.txt
+aiccu start
