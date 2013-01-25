@@ -1,6 +1,14 @@
 #!/bin/bash
 
+ipold="/home/mrnda/Dropbox/PlainText/.igor.ip.txt"
+ipcurrent=`curl icanhazip.com`
+
 aiccu stop
 sleep 10s
-curl icanhazip.com > /home/mrnda/Dropbox/PlainText/.igor.ip.txt
+
+if [ `cat $ipold` != $ipcurrent ] 
+        then
+        echo $ipcurrent > $ipold
+fi
+
 aiccu start
