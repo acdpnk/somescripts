@@ -6,7 +6,7 @@ USAGE="Usage: `basename $0` [-hvps]"
 
 out=/dev/null
 
-while getopts hvps OPT; do
+while getopts hvpsm OPT; do
     case "$OPT" in
         h)
 		echo $USAGE
@@ -23,6 +23,9 @@ while getopts hvps OPT; do
 	s)
 		echo slapping igor
 		echo 'igor off' | ssh root@2001:6f8:900:f3d::2 &>$out
+		;;
+	m)
+		mosh mrnda@2001:6f8:900:8f3d:221:ccff:fe36:d63a
 		;;
         \?)
             # getopts issues an error message
