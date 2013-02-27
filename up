@@ -1,0 +1,39 @@
+#!/bin/bash
+
+# first draft for a unified tw/adn cli
+
+logpath="/home/$(whoami)/.adnlog"
+
+if [ $0 == "/usr/bin/tw" ]; then
+	this=tw
+	maxlen=140
+	client=ttytter
+else if [ $0 == "/usr/bin/adn" ]; then
+	this=adn
+	maxlen=256
+	client=texapp
+	fi
+fi
+post=""
+
+for word in $@; do
+	post="$post $word"
+done
+
+count=${#post}
+
+let count-=maxlen
+
+if [ $count -le 0 ]; then
+	$client -status="$post" > $logpath
+	
+	if grep -Fqi "FAIL" $logpath; then
+		echo "   $this: ...ugh, something went wrong :("
+	else
+		echo "$this: done."
+	fi
+	rm $logpath
+
+else
+	echo "$this: too long by $count :("
+fi
