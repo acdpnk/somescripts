@@ -1,6 +1,12 @@
 #!/bin/bash
 
-# first draft for a unified tw/adn cli
+# save as /bin/tw and /bin/adn
+
+if [ $0 == "./up" ] && [ $1 == "install" ]; then
+	echo installing...
+	cp $(pwd)/up /bin/tw
+	cp $(pwd)/up /bin/adn
+else
 
 logpath="/home/$(whoami)/.adnlog"
 
@@ -36,4 +42,6 @@ if [ $count -le 0 ]; then
 
 else
 	echo "$this: too long by $count :("
+fi
+
 fi
