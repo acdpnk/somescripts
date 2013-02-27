@@ -10,11 +10,11 @@ else
 
 logpath="/home/$(whoami)/.adnlog"
 
-if [ $0 == "/usr/bin/tw" ]; then
+if [ $0 == "/usr/bin/tw" ] || [ $0 == "/bin/tw" ]; then
 	this=tw
 	maxlen=140
 	client=ttytter
-else if [ $0 == "/usr/bin/adn" ]; then
+else if [ $0 == "/usr/bin/adn" ] || [ $0 == "/bin/adn" ]; then
 	this=adn
 	maxlen=256
 	client=texapp
