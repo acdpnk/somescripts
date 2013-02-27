@@ -8,8 +8,6 @@ if [ $0 == "./up" ] && [ $1 == "install" ]; then
 	cp $(pwd)/up /bin/adn
 else
 
-logpath="/home/$(whoami)/.adnlog"
-
 if [ $0 == "/usr/bin/tw" ] || [ $0 == "/bin/tw" ]; then
 	this=tw
 	maxlen=140
@@ -20,6 +18,9 @@ else if [ $0 == "/usr/bin/adn" ] || [ $0 == "/bin/adn" ]; then
 	client=texapp
 	fi
 fi
+
+logpath="/home/$(whoami)/.${this}log"
+
 post=""
 
 for word in $@; do
