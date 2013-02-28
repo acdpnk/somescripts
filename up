@@ -35,7 +35,7 @@ if [ $count -le 0 ]; then
 	$client -status="$post" > $logpath
 	
 	if grep -Fqi "FAIL" $logpath; then
-		echo "   $this: ...ugh, something went wrong :("
+		echo "$this: ...ugh, something went wrong :("
 	else
 		echo "$this: done."
 	fi
