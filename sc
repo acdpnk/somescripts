@@ -14,7 +14,7 @@ gnome-screenshot $1 -f $FILENAME
 
 URL=`dropbox puburl $FILENAME`
 
-echo $URL | xclip -selection clipboard
+echo $URL | tr -d '\n' | xclip -selection clipboard
 
 # Pop up a small notification
 notify-send "Copied $URL to clipboard" -i /home/mrnda/Pictures/hal9000.png
