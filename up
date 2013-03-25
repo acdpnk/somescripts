@@ -4,8 +4,8 @@
 
 if [ $0 == "./up" ] && [ $1 == "install" ]; then
 	echo installing...
-	cp $(pwd)/up /bin/tw
-	cp $(pwd)/up /bin/adn
+	cp $(pwd)/up /usr/bin/tw
+	cp $(pwd)/up /usr/bin/adn
 else
 
 if [ $0 == "/usr/bin/tw" ] || [ $0 == "/bin/tw" ]; then
