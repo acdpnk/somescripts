@@ -1,0 +1,14 @@
+#!/bin/bash
+
+today=$HOME/.today
+date=$(date +%Y%m%d)
+
+if [ "$(cat $today | tr -d '\n')" != "$date" ]; then
+
+	echo -n $date > $today
+
+	echo -n '+++thought of the day: ' > $HOME/.thought
+	echo -n $(fortune $HOME/.dotfiles/.fortunes) >> $HOME/.thought
+	echo '+++' >> $HOME/.thought
+
+fi
