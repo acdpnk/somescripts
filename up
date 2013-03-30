@@ -1,18 +1,10 @@
 #!/bin/bash
 
-# save as /bin/tw and /bin/adn
-
-if [ $0 == "./up" ] && [ $1 == "install" ]; then
-	echo installing...
-	cp $(pwd)/up /usr/bin/tw
-	cp $(pwd)/up /usr/bin/adn
-else
-
-if [ $0 == "/usr/bin/tw" ] || [ $0 == "/bin/tw" ]; then
+if [ $(echo $0 | grep -c tw) == "1" ]; then
 	this=tw
 	maxlen=140
 	client=ttytter
-else if [ $0 == "/usr/bin/adn" ] || [ $0 == "/bin/adn" ]; then
+else if [ $(echo $0 | grep -c adn) == "1" ]; then
 	this=adn
 	maxlen=256
 	client=texapp
@@ -33,7 +25,7 @@ let count-=maxlen
 
 if [ $count -le 0 ]; then
 	$client -status="$post" > $logpath
-	
+
 	if grep -Fqi "FAIL" $logpath; then
 		echo "$this: ...ugh, something went wrong :("
 	else
@@ -43,6 +35,4 @@ if [ $count -le 0 ]; then
 
 else
 	echo "$this: too long by $count :("
-fi
-
 fi

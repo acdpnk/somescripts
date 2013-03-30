@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/bin/bash
 
 USAGE="Usage: `basename $0` [-hvps]"
 
@@ -6,7 +6,7 @@ USAGE="Usage: `basename $0` [-hvps]"
 
 out=/dev/null
 
-while getopts hvpsm OPT; do
+while getopts hvpzm OPT; do
     case "$OPT" in
         h)
 		echo $USAGE
@@ -20,8 +20,8 @@ while getopts hvpsm OPT; do
 		echo poking igor
 		echo 'igor on' | ssh root@2001:6f8:900:f3d::2 &>$out
 		;;
-	s)
-		echo slapping igor
+	z)
+		echo zapping igor
 		echo 'igor off' | ssh root@2001:6f8:900:f3d::2 &>$out
 		;;
 	m)

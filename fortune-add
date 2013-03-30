@@ -1,0 +1,13 @@
+#!/bin/bash
+
+fortune_path="/home/mrnda/.dotfiles/.fortunes"
+
+fortune=""
+
+for word in $@; do
+	fortune="$fortune $word"
+done
+
+echo $fortune >> $fortune_path
+
+echo "%" >> $fortune_path
