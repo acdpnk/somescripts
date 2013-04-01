@@ -11,7 +11,7 @@ else if [ $(echo $0 | grep -c adn) == "1" ]; then
 	fi
 fi
 
-logpath="/home/$(whoami)/.${this}log"
+logpath="/home/$(whoami)/.scrpt/.${this}log"
 
 post=""
 
@@ -28,11 +28,14 @@ if [ $count -le 0 ]; then
 
 	if grep -Fqi "FAIL" $logpath; then
 		echo "$this: ...ugh, something went wrong :("
+		rm $logpath
+		exit 1
 	else
 		echo "$this: done."
 	fi
 	rm $logpath
-
+	exit 0
 else
 	echo "$this: too long by $count :("
+	exit 1
 fi
