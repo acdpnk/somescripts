@@ -11,3 +11,5 @@ done
 echo $fortune >> $fortune_path
 
 echo "%" >> $fortune_path
+
+fortune -u $fortune_path
