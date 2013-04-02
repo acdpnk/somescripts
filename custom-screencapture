@@ -14,5 +14,5 @@ import $OPT $FILENAME
 
 URL=`python /usr/bin/dropbox.py puburl $FILENAME`
 
-echo $URL | tr -d '\n' | xclip -selection clipboard
+echo -n $URL | xclip -selection clipboard
 
