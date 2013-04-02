@@ -1,0 +1,11 @@
+#!/bin/bash
+
+thought="+++thought of the day:"
+
+for word in $@; do
+	thought="$thought $word"
+done
+
+thought="$thought+++"
+
+fortune-add "$thought"

@@ -1,0 +1,11 @@
+#!/bin/bash
+
+gedanke="+++gedanke des tages:"
+
+for word in $@; do
+	gedanke="$gedanke $word"
+done
+
+gedanke="$gedanke+++"
+
+fortune-add "$gedanke"
