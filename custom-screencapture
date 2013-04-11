@@ -12,7 +12,7 @@ FILENAME=~/Dropbox/Public/Screenshots/Screenshot_`date +%Y-%m-%d-%H:%M`.png
 
 import $OPT $FILENAME
 
-URL=`python /usr/bin/dropbox.py puburl $FILENAME`
+URL=`dropbox puburl  $FILENAME`
 
 echo -n $URL | xclip -selection clipboard
 
