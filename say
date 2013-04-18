@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if [[ $(echo $0 | grep -c "say") == "1" ]]; then
+	lang="-ven"
+elif [[ $(echo $0 | grep -c "sag") == "1" ]]; then
+	lang="-vde"
+fi
+
+for word in $@; do
+	speech="$speech $word"
+done
+
+echo $speech | espeak $lang &>/dev/null
