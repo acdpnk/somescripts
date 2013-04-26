@@ -6,4 +6,4 @@ for word in $@; do
 	post="$post $word"
 done
 
-tw "$post" && adn "$post"
+t "$post" && a "$post"

@@ -1,14 +1,14 @@
 #!/bin/bash
 
-if [ $(echo $0 | grep -c tw) == "1" ]; then
-	this=tw
+if [ $(echo $0 | tail -c 2) == "t" ]; then
+	this=t
 	maxlen=140
 	client=ttytter
-else if [ $(echo $0 | grep -c adn) == "1" ]; then
-	this=adn
+else if [ $(echo $0 | tail -c 2) == "a" ]; then
+	this=a
 	maxlen=256
 	client=texapp
-	fi
+fi
 fi
 
 logpath="/home/$(whoami)/.scrpt/.${this}log"
