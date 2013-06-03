@@ -6,6 +6,7 @@ from requests import request
 
 endpoint = "https://alpha-api.app.net/stream/0/posts"
 tokenpath = "/home/mrnda/.scrpt/.a.token"
+maxlen = 256
 
 try:
 	with open(tokenpath, "r") as tokenfile:
@@ -20,8 +21,8 @@ for word in argv[1:]:
 	text += " " + word
 
 text = text.strip()
-if len(text) > 256:
-	print "too long by " + (len(text) - 256) + " :("
+if len(text) > maxlen:
+	print "too long by " + (len(text) - maxlen) + " :("
 	exit(1)
 
 post = json.dumps({'text': text})
