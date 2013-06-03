@@ -5,7 +5,7 @@ import json
 from requests import request
 
 endpoint = "https://alpha-api.app.net/stream/0/posts"
-tokenpath = "/home/mrnda/.scrpt/.a.token"
+tokenpath = "/home/mrnda/.scrpt/.a.token" #this should be the path to the file you're storing your user-token in. you can
 maxlen = 256
 
 try:
@@ -22,7 +22,7 @@ for word in argv[1:]:
 
 text = text.strip()
 if len(text) > maxlen:
-    print "too long by " + (len(text) - maxlen) + " :("
+    print "too long by " + str(len(text) - maxlen) + " :("
     exit(1)
 
 post = json.dumps({'text': text})
