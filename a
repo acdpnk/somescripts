@@ -4,8 +4,10 @@ from sys import argv, exit
 import json
 from requests import request
 
+tokenpath = "/home/mrnda/.scrpt/.a.token"
+#this should be the path to the file you're storing your user-token in. you can get yours using dev-lite by @duerig http://dev-lite.jonathonduerig.com/
+
 endpoint = "https://alpha-api.app.net/stream/0/posts"
-tokenpath = "/home/mrnda/.scrpt/.a.token" #this should be the path to the file you're storing your user-token in. you can
 maxlen = 256
 
 try:
@@ -13,7 +15,7 @@ try:
         token = tokenfile.readline()
         posturl = endpoint + "?access_token=" + token
 except:
-    print "couldn\'t obtain usertoken. check .a.token"
+    print "couldn\'t obtain usertoken. check your token file."
     exit(1)
 
 text = ""
