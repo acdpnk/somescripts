@@ -21,8 +21,8 @@ for word in argv[1:]:
 
 text = text.strip()
 if len(text) > 256:
-	print "too long by " + (len(textpad) - 256) + " :("
-	sys.exit(1)
+	print "too long by " + (len(text) - 256) + " :("
+	exit(1)
 
 post = json.dumps({'text': text})
 
