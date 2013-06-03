@@ -9,28 +9,28 @@ tokenpath = "/home/mrnda/.scrpt/.a.token"
 maxlen = 256
 
 try:
-	with open(tokenpath, "r") as tokenfile:
-		token = tokenfile.readline()
-		posturl = endpoint + "?access_token=" + token
+    with open(tokenpath, "r") as tokenfile:
+        token = tokenfile.readline()
+        posturl = endpoint + "?access_token=" + token
 except:
-	print "couldn\'t obtain usertoken. check .a.token"
-	exit(1)
+    print "couldn\'t obtain usertoken. check .a.token"
+    exit(1)
 
 text = ""
 for word in argv[1:]:
-	text += " " + word
+    text += " " + word
 
 text = text.strip()
 if len(text) > maxlen:
-	print "too long by " + (len(text) - maxlen) + " :("
-	exit(1)
+    print "too long by " + (len(text) - maxlen) + " :("
+    exit(1)
 
 post = json.dumps({'text': text})
 
 try:
-	resp = request("POST", posturl, data = post, headers = {"Content-Type": "application/json"})
-	print "a: done"
+    resp = request("POST", posturl, data = post, headers = {"Content-Type": "application/json"})
+    print "a: done"
 
 except:
-	print "	ugh. something went wrong :("
-	print resp.text
+    print " ugh. something went wrong :("
+    print resp.text
