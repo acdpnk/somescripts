@@ -1,1 +1,35 @@
-up
+#!/usr/bin/python
+
+from sys import argv, exit
+import json
+from requests import request
+
+endpoint = "https://alpha-api.app.net/stream/0/posts"
+tokenpath = "/home/mrnda/.scrpt/.a.token"
+
+try:
+	with open(tokenpath, "r") as tokenfile:
+		token = tokenfile.readline()
+		posturl = endpoint + "?access_token=" + token
+except:
+	print "couldn\'t obtain usertoken. check .a.token"
+	exit(1)
+
+text = ""
+for word in argv[1:]:
+	text += " " + word
+
+text = text.strip()
+if len(text) > 256:
+	print "too long by " + (len(textpad) - 256) + " :("
+	sys.exit(1)
+
+post = json.dumps({'text': text})
+
+try:
+	resp = request("POST", posturl, data = post, headers = {"Content-Type": "application/json"})
+	print "a: done"
+
+except:
+	print "	ugh. something went wrong :("
+	print resp.text
