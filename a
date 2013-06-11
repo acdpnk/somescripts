@@ -1,11 +1,13 @@
 #!/usr/bin/python
 
 from sys import argv, exit
-import json
 from requests import request
+import json
 
 tokenpath = "/home/mrnda/.scrpt/.a.token"
-#this should be the path to the file you're storing your user-token in. you can get yours using dev-lite by @duerig http://dev-lite.jonathonduerig.com/
+# this should be the path to the file you're storing your user-token in.
+# you can get yours using dev-lite by @duerig
+#   http://dev-lite.jonathonduerig.com/
 
 endpoint = "https://alpha-api.app.net/stream/0/posts"
 maxlen = 256
@@ -21,8 +23,8 @@ except:
 text = ""
 for word in argv[1:]:
     text += " " + word
-
 text = text.strip()
+
 if len(text) > maxlen:
     print "too long by " + str(len(text) - maxlen) + " :("
     exit(1)
@@ -31,8 +33,9 @@ post = json.dumps({'text': text})
 
 try:
     resp = request("POST", posturl, data = post, headers = {"Content-Type": "application/json"})
-    print "a: done"
+    print "a: done."
 
 except:
     print " ugh. something went wrong :("
     print resp.text
+    exit(1)
