@@ -37,11 +37,14 @@ try:
     lat = loc.stdout.readline().split(' ')[1].strip()
     lon = loc.stdout.readline().split(' ')[1].strip()
     acc = loc.stdout.readline().split(' ')[2].strip()
+    
+    annotation = [{"type": "net.app.core.geolocation", "value": {"latitude": lat, "longitude": lon, "horizontal_accuracy": acc, "vertical_accuracy": acc }}]
 
 except:
+    annotation = []
     print "no location data available :("
 
-post = json.dumps({'text': text, 'annotations':[{"type": "net.app.core.geolocation", "value": {"latitude": lat, "longitude": lon, "horizontal_accuracy": acc, "vertical_accuracy": acc }}]})
+post = json.dumps({'text': text, 'annotations': annotation})
 
 try:
     resp = request("POST", posturl, data = post, headers = {"Content-Type": "application/json"})
