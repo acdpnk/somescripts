@@ -1,21 +1,23 @@
-#!/usr/bin/python
+#!/usr/local/bin/python
 
 from sys import argv, exit
 from requests import request
 import json
+from subprocess import Popen, PIPE
 
-tokenpath = "/home/mrnda/.scrpt/.a.token"
+tokenpath = "/Users/chrifpa/.scrpt/.a.token"
+
 # this should be the path to the file you're storing your user-token in.
 # you can get yours using dev-lite by @duerig
 #   http://dev-lite.jonathonduerig.com/
 
-endpoint = "https://alpha-api.app.net/stream/0/posts"
+endpoint = "https://alpha-api.app.net/stream/0/posts?include_post_annotations=1"
 maxlen = 256
 
 try:
     with open(tokenpath, "r") as tokenfile:
         token = tokenfile.readline()
-        posturl = endpoint + "?access_token=" + token
+        posturl = endpoint + "&access_token=" + token
 except:
     print "couldn\'t obtain usertoken. check your token file."
     exit(1)
@@ -29,7 +31,17 @@ if len(text) > maxlen:
     print "too long by " + str(len(text) - maxlen) + " :("
     exit(1)
 
-post = json.dumps({'text': text})
+
+try:
+    loc = Popen("whereami", stdout=PIPE)
+    lat = loc.stdout.readline().split(' ')[1].strip()
+    lon = loc.stdout.readline().split(' ')[1].strip()
+    acc = loc.stdout.readline().split(' ')[2].strip()
+
+except:
+    print "no location data available :("
+
+post = json.dumps({'text': text, 'annotations':[{"type": "net.app.core.geolocation", "value": {"latitude": lat, "longitude": lon, "horizontal_accuracy": acc, "vertical_accuracy": acc }}]})
 
 try:
     resp = request("POST", posturl, data = post, headers = {"Content-Type": "application/json"})
