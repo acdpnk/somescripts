@@ -32,19 +32,23 @@ if len(text) > maxlen:
     exit(1)
 
 
+annotations = []
+    
 try:
     loc = Popen("whereami", stdout=PIPE)
     lat = loc.stdout.readline().split(' ')[1].strip()
     lon = loc.stdout.readline().split(' ')[1].strip()
     acc = loc.stdout.readline().split(' ')[2].strip()
     
-    annotation = [{"type": "net.app.core.geolocation", "value": {"latitude": lat, "longitude": lon, "horizontal_accuracy": acc, "vertical_accuracy": acc }}]
+    geo_annotation = {"type": "net.app.core.geolocation", "value": {"latitude": lat, "longitude": lon, "horizontal_accuracy": acc, "vertical_accuracy": acc }}
+
+    annotations.append(geo_annotation)
 
 except:
-    annotation = []
-    print "no location data available :("
+    print "no location data available."
 
-post = json.dumps({'text': text, 'annotations': annotation})
+
+post = json.dumps({'text': text, 'annotations': annotations})
 
 try:
     resp = request("POST", posturl, data = post, headers = {"Content-Type": "application/json"})
