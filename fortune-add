@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fortune_path="/home/mrnda/.dotfiles/.fortunes"
+fortune_path="/Users/chrifpa/.dotfiles/.fortunes"
 
 fortune=""
 

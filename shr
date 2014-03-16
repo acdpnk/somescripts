@@ -1,0 +1,50 @@
+#!/usr/bin/env python
+# coding: utf-8
+import re
+import string
+
+from sys import argv, exit
+from subprocess import Popen, PIPE, STDOUT
+from urllib2 import quote, urlopen
+from requests import get
+
+# Provided by Peter Hansen on StackOverflow:
+# http://stackoverflow.com/questions/1986059/grubers-url-regular-expression-in-python/1986151#1986151
+
+pat = r'\b(([\w-]+://?|www[.])[^\s()<>]+(?:\([\w\d]+\)|([^%s\s]|/)))'
+pat = pat % re.escape(string.punctuation)
+
+text = u" ".join(argv[1:]) if len(argv)>1 else ""
+
+try:
+    clip = Popen("pbpaste", stdout=PIPE).communicate()[0]
+    match = re.findall(pat, clip)
+    link = match[0][0]
+    if not link:
+        rep = "no url found :("
+        Popen(("terminal-notifier", "-message", rep), stderr=STDOUT, stdout=PIPE)
+        exit(1)
+
+    cleaned = urlopen(link).geturl()
+
+    shortlink = get("http://is.gd/create.php?format=simple&url=" + quote(cleaned)).text
+except:
+    rep="something went wrong :("
+    Popen(("terminal-notifier", "-message", rep), stderr=STDOUT, stdout=PIPE)
+    exit(1)
+
+
+tweet = text + " " + shortlink if "error" not in shortlink else text + " " + link
+adnpost = "[%s](%s)" % (text,cleaned) if text != "" else cleaned
+
+twitter = Popen(("t", tweet.strip()), stderr=STDOUT, stdout=PIPE)
+adn = Popen(("wry", "post", adnpost), stderr=STDOUT, stdout=PIPE)
+
+twitter.communicate()
+adn.communicate()
+
+twitterrep = "done." if not twitter.returncode else "FAIL[%s]." % str(twitter.returncode)
+adnrep = "done." if not adn.returncode else "FAIL[%s]." % str(adn.returncode)
+rep = "twitter:\t%s\nadn:\t\t%s\n" % (twitterrep,adnrep)
+
+Popen(("terminal-notifier", "-message", rep), stderr=STDOUT, stdout=PIPE)

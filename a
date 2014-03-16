@@ -16,11 +16,12 @@ maxlen = 256
 
 try:
     with open(tokenpath, "r") as tokenfile:
-        token = tokenfile.readline()
+        token = tokenfile.readline().strip()
         posturl = endpoint + "&access_token=" + token
 except:
-    print "couldn\'t obtain usertoken. check your token file."
+    print "a: couldn\'t obtain usertoken. check your token file."
     exit(1)
+
 
 text = ""
 for word in argv[1:]:
@@ -28,7 +29,7 @@ for word in argv[1:]:
 text = text.strip()
 
 if len(text) > maxlen:
-    print "too long by " + str(len(text) - maxlen) + " :("
+    print "a: too long by " + str(len(text) - maxlen) + " :("
     exit(1)
 
 
@@ -45,7 +46,7 @@ try:
     annotations.append(geo_annotation)
 
 except:
-    print "no location data available."
+    print "a: no location data available."
 
 
 post = json.dumps({'text': text, 'annotations': annotations})
@@ -55,6 +56,6 @@ try:
     print "a: done."
 
 except:
-    print " ugh. something went wrong :("
+    print "a: ugh. something went wrong :("
     print resp.text
     exit(1)

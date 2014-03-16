@@ -1,0 +1,7 @@
+#!/usr/bin/python
+
+import os
+
+for year in range(2007, 2021):
+      for month in range(1, 13):
+              os.makedirs('Photos/%04d/%02d' % (year, month))

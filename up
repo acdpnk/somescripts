@@ -11,7 +11,7 @@ else if [ $(echo $0 | tail -c 2) == "a" ]; then
 fi
 fi
 
-logpath="/home/$(whoami)/.scrpt/.${this}log"
+logpath="$HOME/.scrpt/.${this}log"
 
 post=""
 

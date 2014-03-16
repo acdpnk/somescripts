@@ -11,7 +11,7 @@ for word in argv[1:]:
 text = text.strip()
 
 if len(text) > maxlen:
-    print "too long by " + str(len(text) - maxlen) + " :("
+    print "t: too long by " + str(len(text) - maxlen) + " :("
     exit(1)
 
 try:
@@ -23,7 +23,7 @@ try:
 
 except:
     position = ()
-    print "no location data available."
+    print "t: no location data available."
 
 try:
     resp = Popen(("ttytter", "-status=" + text) + position, stdout=PIPE)
@@ -33,5 +33,5 @@ try:
     print "t: done."
 
 except:
-    print " ugh. something went wrong :("
+    print "t: ugh. something went wrong :("
     exit(1)
