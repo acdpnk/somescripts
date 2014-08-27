@@ -14,7 +14,21 @@ from requests import get
 pat = r'\b(([\w-]+://?|www[.])[^\s()<>]+(?:\([\w\d]+\)|([^%s\s]|/)))'
 pat = pat % re.escape(string.punctuation)
 
-text = u" ".join(argv[1:]) if len(argv)>1 else ""
+#text = u" ".join(argv[1:]) if len(argv)>1 else ""
+
+text = ""
+hashtags = ""
+
+if len(argv)>1:
+    for arg in argv[1:]:
+        if arg.startswith("#"):
+            hashtags = hashtags + " " + arg
+        else:
+            text = text + " " + arg
+via = ""
+if "//" in text:
+    (text, via) = text.split('//')
+    via = ' //' + via
 
 try:
     clip = Popen("pbpaste", stdout=PIPE).communicate()[0]
@@ -36,6 +50,14 @@ except:
 
 tweet = text + " " + shortlink if "error" not in shortlink else text + " " + link
 adnpost = "[%s](%s)" % (text,cleaned) if text != "" else cleaned
+
+if hashtags:
+    tweet += hashtags
+    adnpost += hashtags
+
+if via:
+    tweet += via
+    adnpost += via
 
 twitter = Popen(("t", tweet.strip()), stderr=STDOUT, stdout=PIPE)
 adn = Popen(("wry", "post", adnpost), stderr=STDOUT, stdout=PIPE)

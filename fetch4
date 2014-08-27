@@ -1,6 +1,0 @@
-#!/bin/bash
-
-aiccu stop
-#sleep 10s
-curl icanhazip.com > /home/mrnda/Dropbox/PlainText/.igor.ip.txt
-aiccu start
